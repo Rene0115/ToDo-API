@@ -1,10 +1,13 @@
 {
-  "name": "y",
+  "name": "api_skeleton",
   "version": "1.0.0",
   "description": "API-SKELETON",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ./*.js --fix",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -12,6 +15,14 @@
   },
   "author": "Rene0115",
   "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.18" 
+  },
   "bugs": {
     "url": "https://github.com/Rene0115/API-Skeleton/issues"
   },
