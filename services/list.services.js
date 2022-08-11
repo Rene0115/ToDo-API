@@ -7,6 +7,11 @@ class ListService {
     const creates = await listModel.create(note);
     return creates;
   }
+
+  async update(id, data) {
+    const updates = await listModel.updateOne({ _id: id }, data, { runValidators: true });
+    return updates;
+  }
 }
 
 export default new ListService();

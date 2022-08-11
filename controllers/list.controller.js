@@ -15,6 +15,18 @@ class ListController {
       message: 'List created successfully'
     });
   }
+
+  async updateList(req, res) {
+    const data = {
+      title: req.body.title,
+      content: req.body.content
+    };
+    await listService.update(req.body.id, data);
+    res.status(200).send({
+      success: true,
+      message: 'List updated successfully'
+    });
+  }
 }
 
 export default new ListController();
