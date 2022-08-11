@@ -1,13 +1,17 @@
 import express from 'express';
 import pino from 'pino';
-import middleware from './middlewares/middlewares';
+import middleware from './middlewares/middlewares.js';
 
 const app = express();
 const logger = pino();
 
 middleware(app);
 
-const port = 5000;
-app.listen(port, ()=>{
-    logger.info(`Server is running on port ${port}`);
+
+app.listen(process.env.PORT, ()=>{
+    logger.info(`Server is running on port ${process.env.PORT}`);
 });
+
+export default logger;
+
+

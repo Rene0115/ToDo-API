@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from "body-parser";
 import database from "../config/db.config.js";
 import errorHandler from './error.middleware.js';
+import cors from 'cors';
 const middleware = (app) =>{
     app.use(express.urlencoded({ extended: true}));
     app.use(express.json());
