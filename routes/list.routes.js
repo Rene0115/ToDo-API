@@ -3,6 +3,6 @@ import express from 'express';
 import listController from '../controllers/list.controller.js';
 
 const listRouter = express.Router();
-listRouter.get('/', listController.createList);
+listRouter.post('/', listController.createList);
 
 export default listRouter;
