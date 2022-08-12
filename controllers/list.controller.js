@@ -28,6 +28,9 @@ class ListController {
       message: 'List updated successfully'
     });
   }
+  async deleteList(req, res) {
+    const deleted = await listService.delete
+  }
 }
 
 export default new ListController();
