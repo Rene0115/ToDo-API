@@ -1,6 +1,7 @@
+/* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
-import listService from '../services/list.services';
+import listService from '../services/list.services.js';
 
 class ListController {
   async createList(req, res) {
