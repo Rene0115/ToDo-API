@@ -1,7 +1,7 @@
 {
-  "name": "api_skeleton",
+  "name": "to-do-list-pi",
   "version": "1.0.0",
-  "description": "API-SKELETON",
+  "description": "A simple API for a ToDo list app",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
