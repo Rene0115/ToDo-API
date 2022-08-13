@@ -26,15 +26,23 @@ class ListController {
   }
 
   async updateList(req, res) {
+    const list = await listService.getListById(req.body.id);
+    if (_.isEmpty(list)) {
+      return res.status(404).send({
+        success: false,
+        message: 'List does not exist, please create a list '
+      });
+    }
     const data = {
       title: req.body.title,
       content: req.body.content
     };
-    await listService.update(req.body.id, data);
+    const updatedList = await listService.update(req.body.id, data);
 
-    res.status(200).send({
+    return res.status(200).send({
       success: true,
-      message: 'List updated successfully'
+      message: 'List updated successfully',
+      body: updatedList
     });
   }
 

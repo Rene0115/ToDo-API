@@ -24,7 +24,7 @@ class ListService {
   }
 
   async getListById(id) {
-    const aList = await listModel.find({ userId: id });
+    const aList = await listModel.findOne({ _id: id });
     return aList;
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/extensions */
 import express from 'express';
 import listController from '../controllers/list.controller.js';
