@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 import _ from 'lodash';
@@ -30,7 +31,29 @@ class UserController {
   }
 
   async loginUser(req, res) {
-
+    const user = await userService.findByEmail(req.body);
+    if (_.isEmpty(user)) {
+      return res.status(404).send({
+        success: false,
+        message: 'user does not exist, create a user before attempting to login'
+      });
+    }
+    const verifyPassword = bcrypt.compareSync(req.body.password, user.password);
+    if (!verifyPassword) {
+      return res.status(404).send({
+        success: false,
+        message: 'email or password is invalid'
+      });
+    }
+    const token = jwt.sign({ _id: user._id, email: user.email }, process.env.TOKEN_SECRET, { expiresIn: '20h', algorithm: 'HS512' });
+    return res.status(200).send({
+      success: true,
+      body: {
+        message: 'user logged in successfully',
+        token,
+        data: user
+      }
+    });
   }
 }
 
