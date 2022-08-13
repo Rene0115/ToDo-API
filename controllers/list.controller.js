@@ -47,13 +47,14 @@ class ListController {
   }
 
   async deleteList(req, res) {
-    const posts = await listService.delete(req.params.id);
+    const posts = await listService.delete(req.body.id);
     if (_.isEmpty(posts)) {
       return res.status(404).send({
         success: false,
         message: 'List does not exist'
       });
     }
+
     return res.status(200).send({
       success: true,
       message: 'List deleted successfully'
