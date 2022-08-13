@@ -21,7 +21,8 @@ class ListController {
 
     return res.status(200).send({
       success: true,
-      message: 'List created successfully'
+      message: 'List created successfully',
+      body: list
     });
   }
 
@@ -37,12 +38,11 @@ class ListController {
       title: req.body.title,
       content: req.body.content
     };
-    const updatedList = await listService.update(req.body.id, data);
+    await listService.update(req.body.id, data);
 
     return res.status(200).send({
       success: true,
-      message: 'List updated successfully',
-      body: updatedList
+      message: 'List updated successfully'
     });
   }
 
