@@ -15,7 +15,7 @@ class ListController {
     if (_.isEmpty(list)) {
       return res.status(404).send({
         success: false,
-        message: 'Title, content and userId are required'
+        message: 'Title, content and are required'
       });
     }
 
@@ -49,6 +49,40 @@ class ListController {
     return res.status(200).send({
       success: true,
       message: 'List deleted successfully'
+    });
+  }
+
+  async getAllLists(req, res) {
+    const allLists = await listService.getLists();
+
+    if (_.isEmpty(allLists)) {
+      return res.status(200).send({
+        success: true,
+        count: allLists.length,
+        message: 'No Lists have been created'
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: 'Lists were found',
+      body: allLists
+    });
+  }
+
+  async getListById(req, res) {
+    const allLists = await listService.getListById(req.params.userId);
+    if (_.isEmpty(allLists)) {
+      return res.status(200).send({
+        success: true,
+        count: allLists.length,
+        message: 'no lists found'
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      count: allLists.length,
+      body: allLists
+
     });
   }
 }

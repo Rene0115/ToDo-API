@@ -18,12 +18,12 @@ class ListService {
     return deletes;
   }
 
-  async getAllLists() {
+  async getLists() {
     const allLists = await listModel.find();
     return allLists;
   }
 
-  async getAlist(id) {
+  async getListById(id) {
     const aList = await listModel.find({ userId: id });
     return aList;
   }
