@@ -28,8 +28,13 @@ class ListController {
       message: 'List updated successfully'
     });
   }
+
   async deleteList(req, res) {
-    const deleted = await listService.delete
+    await listService.delete(req.body.id);
+    return res.status(200).send({
+      success: true,
+      message: 'List deleted successfully'
+    });
   }
 }
 

@@ -22,6 +22,11 @@ class ListService {
     const allLists = await listModel.find();
     return allLists;
   }
+
+  async getAlist(id) {
+    const aList = await listModel.find({ userId: id });
+    return aList;
+  }
 }
 
 export default new ListService();
