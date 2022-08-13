@@ -14,7 +14,7 @@ class ListService {
   }
 
   async delete(id) {
-    const deletes = await listModel.findByIdAndDelete(id);
+    const deletes = await listModel.findByIdAndDelete({ _id: id });
     return deletes;
   }
 
