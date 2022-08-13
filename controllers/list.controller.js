@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
+import _ from 'lodash';
 import listService from '../services/list.services.js';
 
 class ListController {
@@ -10,7 +11,14 @@ class ListController {
       content: req.body.content,
       userId: req.user._id
     };
-    await listService.create(data);
+    const list = await listService.create(data);
+    if (_.isEmpty(list)) {
+      return res.status(404).send({
+        success: false,
+        message: 'Title, content and userId are required'
+      });
+    }
+
     return res.status(200).send({
       success: true,
       message: 'List created successfully'
@@ -23,6 +31,7 @@ class ListController {
       content: req.body.content
     };
     await listService.update(req.body.id, data);
+
     res.status(200).send({
       success: true,
       message: 'List updated successfully'
@@ -30,7 +39,13 @@ class ListController {
   }
 
   async deleteList(req, res) {
-    await listService.delete(req.body.id);
+    const posts = await listService.delete(req.params.id);
+    if (_.isEmpty(posts)) {
+      return res.status(404).send({
+        success: false,
+        message: 'List does not exist'
+      });
+    }
     return res.status(200).send({
       success: true,
       message: 'List deleted successfully'
