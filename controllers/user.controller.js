@@ -26,7 +26,8 @@ class UserController {
 
     return res.status(201).send({
       success: true,
-      message: 'user created successfully'
+      message: 'user created successfully',
+      body: data
     });
   }
 
