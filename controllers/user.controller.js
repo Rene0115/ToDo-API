@@ -55,6 +55,14 @@ class UserController {
       }
     });
   }
+
+  async fetchUsers(req, res) {
+    const users = await userService.getAllUsers();
+    return res.status(200).send({
+      success: true,
+      body: { ...users }
+    });
+  }
 }
 
 export default new UserController();
