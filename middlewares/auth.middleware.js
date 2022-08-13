@@ -1,5 +1,8 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable import/extensions */
 /* eslint-disable consistent-return */
 import Jwt from 'jsonwebtoken';
+import logger from '../app.js';
 
 const authentication = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -8,7 +11,11 @@ const authentication = (req, res, next) => {
 
   Jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) {
-      return res.status(403).send({ status: false, message: 'forbidden' });
+      logger.error(err);
+      return res.status(403).send({
+        success: false,
+        message: 'forbidden'
+      });
     }
     req.user = user;
     next();

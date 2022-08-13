@@ -3,8 +3,7 @@ import Joi from 'joi';
 class ListValidator {
   createListSchema = Joi.object({
     title: Joi.string().required(),
-    content: Joi.string().required(),
-    userId: Joi.string().required()
+    content: Joi.string().required()
   });
 
   updateListSchema = Joi.object({
