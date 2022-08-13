@@ -3,19 +3,24 @@
 import userModel from '../models/user.model.js';
 
 class UserService {
-  async createUser(data) {
+  async create(data) {
     const newUser = await userModel.create(data);
     return newUser;
   }
 
-  async loginUser(data) {
+  async login(data) {
     const user = await userModel.findOne({ email: data.email });
     return user;
   }
 
-  async fetchUsers() {
+  async getAllUsers() {
     const users = userModel.find({});
     return users;
+  }
+
+  async findByEmail(data) {
+    const user = await userModel.findOne({ email: data.email });
+    return user;
   }
 }
 export default new UserService();
