@@ -10,7 +10,12 @@ const logger = pino();
 middleware(app);
 
 app.listen(process.env.PORT, () => {
-  logger.info(`Server is running on port ${process.env.PORT}`);
+  let port = process.env.PORT;
+  if (port == null || port === '') {
+    port = 8000;
+  }
+
+  logger.info(`Server is running on port ${port}`);
 });
 
 export default logger;
