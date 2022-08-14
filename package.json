@@ -27,7 +27,7 @@
     "url": "https://github.com/Rene0115/ToDo-API/issues"
   },
   "engines": {
-    "nodemon": "^2.0.19"
+    "node": "16.15.1"
   },
   "homepage": "https://github.com/Rene0115/ToDo-API#readme",
   "dependencies": {
