@@ -10,7 +10,7 @@ const validator = (schema, reqbody = 'body') => async (req, res, next) => {
     next();
   } catch (e) {
     return res.status(500).send({
-      message: false,
+      success: false,
       body: e
     });
   }
