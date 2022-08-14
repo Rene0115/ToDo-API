@@ -26,6 +26,9 @@
   "bugs": {
     "url": "https://github.com/Rene0115/ToDo-API/issues"
   },
+  "engines": {
+    "nodemon": "^2.0.19"
+  },
   "homepage": "https://github.com/Rene0115/ToDo-API#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
