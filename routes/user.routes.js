@@ -11,4 +11,5 @@ userRouter.post('/signup', [validator(validateUserSchema)], userController.creat
 userRouter.post('/login', [validator(validateUserSchema)], userController.loginUser);
 userRouter.get('/email', userController.getUserbyEmail);
 userRouter.get('/:id', userController.getUserById);
+userRouter.delete('/:id', userController.deleteUser);
 export default userRouter;

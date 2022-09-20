@@ -92,6 +92,21 @@ class UserController {
       data: user
     });
   }
+
+  async deleteUser(req, res) {
+    const posts = await userService.delete(req.params.id);
+    if (_.isEmpty(posts)) {
+      return res.status(404).send({
+        success: false,
+        message: 'user does not exist'
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: 'user deleted successfully'
+    });
+  }
 }
 
 export default new UserController();
