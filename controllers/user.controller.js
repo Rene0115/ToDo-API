@@ -80,7 +80,7 @@ class UserController {
   }
 
   async getUserById(req, res) {
-    const user = await userService.getUserById(req.params);
+    const user = await userService.getUserById(req.params.id);
     if (_.isEmpty(user)) {
       return res.status(200).send({
         success: true,

@@ -10,5 +10,5 @@ userRouter.get('/', userController.fetchUsers);
 userRouter.post('/signup', [validator(validateUserSchema)], userController.createUser);
 userRouter.post('/login', [validator(validateUserSchema)], userController.loginUser);
 userRouter.get('/email', userController.getUserbyEmail);
-userRouter.get('/:Id', userController.getUserById);
+userRouter.get('/:id', userController.getUserById);
 export default userRouter;
