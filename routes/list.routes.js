@@ -11,5 +11,5 @@ listRouter.post('/create', [validator(listValidator.createListSchema), authentic
 listRouter.put('/update', [validator(listValidator.updateListSchema), authentication], listController.updateList);
 listRouter.get('/:userId', authentication, listController.getListById);
 listRouter.delete('/delete', [validator(listValidator.deleteListSchema), authentication], listController.deleteList);
-listRouter.get('/', listController.getAllLists);
+listRouter.get('/', authentication, listController.getAllLists);
 export default listRouter;

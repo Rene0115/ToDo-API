@@ -78,6 +78,20 @@ class UserController {
       data: users
     });
   }
+
+  async getUserById(req, res) {
+    const user = await userService.getUserById(req.params.id);
+    if (_.isEmpty(user)) {
+      return res.status(200).send({
+        success: true,
+        message: 'No user with this email exits'
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      data: user
+    });
+  }
 }
 
 export default new UserController();
