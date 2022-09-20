@@ -80,11 +80,11 @@ class UserController {
   }
 
   async getUserById(req, res) {
-    const user = await userService.getUserById(req.params.id);
+    const user = await userService.getUserById(req.params);
     if (_.isEmpty(user)) {
       return res.status(200).send({
         success: true,
-        message: 'No user with this email exits'
+        message: 'No user with this id exits'
       });
     }
     return res.status(200).send({
