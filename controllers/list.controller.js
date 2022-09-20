@@ -83,13 +83,11 @@ class ListController {
     if (_.isEmpty(allLists)) {
       return res.status(200).send({
         success: true,
-        count: allLists.length,
         message: 'no lists found'
       });
     }
     return res.status(200).send({
       success: true,
-      count: allLists.length,
       body: allLists
 
     });
