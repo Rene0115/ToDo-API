@@ -22,7 +22,7 @@ class ListController {
     return res.status(200).send({
       success: true,
       message: 'List created successfully',
-      body: list
+      data: list
     });
   }
 
@@ -74,7 +74,7 @@ class ListController {
     return res.status(200).send({
       success: true,
       message: 'Lists were found',
-      body: allLists
+      data: allLists
     });
   }
 
@@ -88,7 +88,7 @@ class ListController {
     }
     return res.status(200).send({
       success: true,
-      body: allLists
+      data: allLists
 
     });
   }
