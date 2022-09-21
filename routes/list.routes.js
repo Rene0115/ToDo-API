@@ -10,6 +10,6 @@ const listRouter = express.Router();
 listRouter.post('/create', [validator(listValidator.createListSchema), authentication], listController.createList);
 listRouter.put('/update', [validator(listValidator.updateListSchema), authentication], listController.updateList);
 listRouter.get('/:userId', authentication, listController.getListById);
-listRouter.delete('/delete/:id', [validator(listValidator.deleteListSchema), authentication], listController.deleteList);
+listRouter.delete('/delete/:id', authentication, listController.deleteList);
 listRouter.get('/', authentication, listController.getAllLists);
 export default listRouter;

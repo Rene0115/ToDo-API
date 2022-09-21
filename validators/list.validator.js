@@ -12,8 +12,8 @@ class ListValidator {
     title: Joi.string()
   });
 
-  deleteListSchema = Joi.object({
-    id: Joi.string().required()
-  });
+  // deleteListSchema = Joi.object({
+  //   id: Joi.string().required()
+  // });
 }
 export default new ListValidator();
