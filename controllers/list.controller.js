@@ -99,7 +99,7 @@ class ListController {
       if (!lists) {
         return res.status(400).send({
           success: false,
-          message: 'no movies exist in the database'
+          message: 'no lists exist in the database'
         });
       }
     }
@@ -111,7 +111,7 @@ class ListController {
     if (!lists) {
       return res.status(400).send({
         success: false,
-        message: 'no movie exist in the database'
+        message: 'no lists exist in the database'
       });
     }
     return res.status(200).send({

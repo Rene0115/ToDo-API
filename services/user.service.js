@@ -32,5 +32,10 @@ class UserService {
     const deleted = await userModel.findByIdAndDelete(id);
     return deleted;
   }
+
+  async getUserByPage(data) {
+    const movie = await userModel.paginate({}, { page: data.page, size: data.size });
+    return movie;
+  }
 }
 export default new UserService();

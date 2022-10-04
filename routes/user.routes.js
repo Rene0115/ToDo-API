@@ -9,6 +9,7 @@ const userRouter = express.Router();
 userRouter.get('/', userController.fetchUsers);
 userRouter.post('/signup', [validator(validateUserSchema)], userController.createUser);
 userRouter.post('/login', [validator(validateUserSchema)], userController.loginUser);
+userRouter.get('/pages', userController.paginated);
 userRouter.get('/email', userController.getUserbyEmail);
 userRouter.get('/:id', userController.getUserById);
 userRouter.delete('/:id', userController.deleteUser);

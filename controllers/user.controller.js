@@ -107,6 +107,33 @@ class UserController {
       message: 'user deleted successfully'
     });
   }
+
+  async paginated(req, res) {
+    if (!(req.query?.page && req.query?.size)) {
+      const users = await userService.getAllUsers();
+      if (!users) {
+        return res.status(400).send({
+          success: false,
+          message: 'no users exist in the database'
+        });
+      }
+    }
+    const page = req.query?.page;
+    const size = req.query?.size;
+    const data = { page, size };
+
+    const users = await userService.getUserByPage(data);
+    if (!users) {
+      return res.status(400).send({
+        success: false,
+        message: 'no users exist in the database'
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      data: users
+    });
+  }
 }
 
 export default new UserController();
