@@ -92,6 +92,33 @@ class ListController {
 
     });
   }
+
+  async paginated(req, res) {
+    if (!(req.query?.page && req.query?.size)) {
+      const lists = await listService.getLists();
+      if (!lists) {
+        return res.status(400).send({
+          success: false,
+          message: 'no movies exist in the database'
+        });
+      }
+    }
+    const page = req.query?.page;
+    const size = req.query?.size;
+    const data = { page, size };
+
+    const lists = await listService.getListByPage(data);
+    if (!lists) {
+      return res.status(400).send({
+        success: false,
+        message: 'no movie exist in the database'
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      data: lists
+    });
+  }
 }
 
 export default new ListController();

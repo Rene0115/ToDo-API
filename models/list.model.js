@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const listSchema = mongoose.Schema({
   title: {
@@ -13,6 +14,8 @@ const listSchema = mongoose.Schema({
     type: String
   }
 }, { timestamps: true });
+
+listSchema.plugin(mongoosePaginate);
 
 const listModel = mongoose.model('List', listSchema);
 

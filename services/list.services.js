@@ -27,6 +27,11 @@ class ListService {
     const aList = await listModel.findOne({ _id: id });
     return aList;
   }
+
+  async getListByPage(data) {
+    const movie = await listModel.paginate({}, { page: data.page, size: data.size });
+    return movie;
+  }
 }
 
 export default new ListService();

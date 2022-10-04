@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const userSchema = mongoose.Schema({
 
@@ -15,6 +16,8 @@ const userSchema = mongoose.Schema({
   }
 
 }, { timestamps: true });
+
+userSchema.plugin(mongoosePaginate);
 
 userSchema.methods.toJSON = function f() {
   const userObject = this.toObject();

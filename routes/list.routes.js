@@ -9,6 +9,7 @@ import listValidator from '../validators/list.validator.js';
 const listRouter = express.Router();
 listRouter.post('/create', [validator(listValidator.createListSchema), authentication], listController.createList);
 listRouter.put('/update', [validator(listValidator.updateListSchema), authentication], listController.updateList);
+listRouter.get('/pages', listController.paginated);
 listRouter.get('/:userId', authentication, listController.getListById);
 listRouter.delete('/delete/:id', authentication, listController.deleteList);
 listRouter.get('/', authentication, listController.getAllLists);
