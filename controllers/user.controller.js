@@ -4,10 +4,11 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import { transporter, mailGenerator } from '../config/mailer.config.js';
 import userService from '../services/user.service.js';
 
 class UserController {
-  async createUser(req, res) {
+  async create(req, res) {
     const user = await userService.findByEmail(req.body);
     if (!_.isEmpty(user)) {
       return res.status(400).send({
@@ -15,19 +16,54 @@ class UserController {
         message: 'User already exists'
       });
     }
-    const data = { email: req.body.email, password: bcrypt.hashSync(req.body.password, 8) };
-    if (_.isEmpty(data)) {
-      return res.status(404).send({
+    const data = {
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, 10),
+      firstname: req.body.firstname,
+      lastname: req.body.lastname
+    };
+    if (!(data.email || data.firstname || data.lastname || data.password)) {
+      res.status(404).send({
         success: false,
-        message: 'User cannot be created without an email and a password'
+        message: 'must supply email, password, firstname and lastname'
       });
     }
-    await userService.create(data);
+    const newUser = await userService.create(data);
+
+    const verificationToken = newUser.generateToken();
+
+    const url = `${process.env.APP_URL}/users/verify/${verificationToken}`;
+
+    const response = {
+      body: {
+        name: `${req.body.firstname} ${req.body.lastname}`,
+        intro: 'Email Verification Link',
+        action: {
+          instructions:
+              'If you did not request for this mail, Please Ignore it. To Verify your Email password, click on the link below:',
+          button: {
+            text: 'Verify Email',
+            link: url
+          }
+        },
+        outro: 'Do not share this link with anyone.'
+      }
+    };
+
+    const mail = mailGenerator.generate(response);
+
+    const message = {
+      from: 'Nacoss-Blog <nacossblogapp@gmail.com>',
+      to: req.body.email,
+      subject: 'Verify Your Email',
+      html: mail
+    };
+
+    await transporter.sendMail(message);
 
     return res.status(201).send({
-      success: true,
-      message: 'user created successfully',
-      body: data
+      message: `Sent a verification email to ${req.body.email}`,
+      data: newUser
     });
   }
 
