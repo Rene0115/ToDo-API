@@ -1,16 +1,13 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import userController from '../controllers/user.controller.js';
-import validateUserSchema from '../validators/user.validator.js';
+import { validateUserSchema, validateForgotPassword } from '../validators/user.validator.js';
 import validator from '../validators/validator.js';
 
 const userRouter = express.Router();
 
-userRouter.get('/', userController.fetchUsers);
-userRouter.post('/signup', [validator(validateUserSchema)], userController.createUser);
+userRouter.post('/signup', [validator(validateUserSchema)], userController.create);
 userRouter.post('/login', [validator(validateUserSchema)], userController.loginUser);
-userRouter.get('/pages', userController.paginated);
-userRouter.get('/email', userController.getUserbyEmail);
-userRouter.get('/:id', userController.getUserById);
-userRouter.delete('/:id', userController.deleteUser);
+userRouter.get('/', userController.paginated);
+userRouter.post('/forgotpassword', [validator(validateForgotPassword)], userController.forgotPassword);
 export default userRouter;

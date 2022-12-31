@@ -53,7 +53,7 @@ class UserController {
     const mail = mailGenerator.generate(response);
 
     const message = {
-      from: 'Nacoss-Blog <nacossblogapp@gmail.com>',
+      from: 'TO-DO <enere0115@gmail.com>',
       to: req.body.email,
       subject: 'Verify Your Email',
       html: mail
@@ -93,57 +93,6 @@ class UserController {
     });
   }
 
-  async fetchUsers(req, res) {
-    const users = await userService.getAllUsers();
-    return res.status(200).send({
-      success: true,
-      data: { ...users }
-    });
-  }
-
-  async getUserbyEmail(req, res) {
-    const users = await userService.findByEmail(req.body);
-    if (_.isEmpty(users)) {
-      return res.status(200).send({
-        success: true,
-        message: 'No user with this email exits'
-      });
-    }
-    return res.status(200).send({
-      success: true,
-      data: users
-    });
-  }
-
-  async getUserById(req, res) {
-    const user = await userService.getUserById(req.params.id);
-    if (_.isEmpty(user)) {
-      return res.status(200).send({
-        success: true,
-        message: 'No user with this id exits'
-      });
-    }
-    return res.status(200).send({
-      success: true,
-      data: user
-    });
-  }
-
-  async deleteUser(req, res) {
-    const posts = await userService.delete(req.params.id);
-    if (_.isEmpty(posts)) {
-      return res.status(404).send({
-        success: false,
-        message: 'user does not exist'
-      });
-    }
-
-    return res.status(200).send({
-      success: true,
-      message: 'user deleted successfully'
-    });
-  }
-
   async paginated(req, res) {
     if (!(req.query?.page && req.query?.size)) {
       const users = await userService.getAllUsers();
@@ -168,6 +117,75 @@ class UserController {
     return res.status(200).send({
       success: true,
       data: users
+    });
+  }
+
+  async verify(req, res) {
+    const { token } = req.params;
+    // Check we have an id
+    if (!token) {
+      return res.status(422).send({
+        message: 'Missing Token'
+      });
+    }
+
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_SECRET
+    );
+    const user = await userService.findOne({ _id: decoded._id });
+    if (!user) {
+      return res.status(404).send({
+        message: 'User does not  exist'
+      });
+    }
+
+    user.verified = true;
+    await user.save();
+
+    return res.status(200).send({
+      message: 'Account Verified'
+    });
+  }
+
+  async forgotPassword(req, res) {
+    const { newPassword } = req.body;
+
+    const user = await userService.findByEmail(req.body);
+    if (_.isEmpty(user)) {
+      return res.status(404).send({
+        success: false,
+        message: 'user does not exist'
+      });
+    }
+    if (user) {
+      const hash = bcrypt.hashSync(newPassword, 10);
+
+      await user.updateOne({ password: hash });
+    }
+
+    const response = {
+      body: {
+        name: `${user.username}`,
+        intro: 'Password Reset Successfully.',
+        outre: 'If you did not initiate this reset please contact our customer support.'
+
+      }
+    };
+
+    const mail = mailGenerator.generate(response);
+
+    const message = {
+      from: 'TO DO LIST <enere0115@gmail.com>',
+      to: user.email,
+      subject: 'Password reset success',
+      html: mail
+    };
+
+    await transporter.sendMail(message);
+
+    return res.status(201).send({
+      message: `Password changed successfully. Confirmation email sent to  ${user.email}`
     });
   }
 }
