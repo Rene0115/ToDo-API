@@ -9,9 +9,13 @@ const logger = pino();
 
 middleware(app);
 
+type sport = number | string | undefined;;
+
+let port: sport = process.env.PORT;
+
 app.listen(process.env.PORT, () => {
-  let port = process.env.PORT;
-  if (port == null || port === '') {
+
+  if (port == undefined || port === '') {
     port = 8000;
   }
 

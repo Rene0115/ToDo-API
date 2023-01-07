@@ -1,5 +1,9 @@
 /* eslint-disable consistent-return */
-const validator = (schema, reqbody = 'body') => async (req, res, next) => {
+import Joi from "joi";
+import express from "express";
+import logger from "../app";
+
+const validator = (schema: Joi.ObjectSchema, reqbody = 'body') => async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const validated = await schema.validateAsync(req.body);
   try {
     if (reqbody === 'body') {
@@ -8,10 +12,10 @@ const validator = (schema, reqbody = 'body') => async (req, res, next) => {
       req.query = validated;
     }
     next();
-  } catch (e) {
+  } catch (error) {
     return res.status(500).send({
       success: false,
-      body: e
+      body: logger.error(error)
     });
   }
 };
