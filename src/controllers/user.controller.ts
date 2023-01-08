@@ -7,10 +7,12 @@ import {Request, Response} from 'express'
 import bcrypt from 'bcrypt';
 import { transporter, mailGenerator } from '../config/mailer.config';
 import userService from '../services/user.service';
+import userModel from '../models/user.model';
 
+const secret = process.env.TOKEN_SECRET || ''
 class UserController {
   async create(req: Request, res: Response) {
-    const user = await userService.findByEmail(req.body);
+    const user = await userService.findByEmail(req.body.email);
     if (!_.isEmpty(user)) {
       return res.status(400).send({
         success: false,
@@ -69,7 +71,7 @@ class UserController {
   }
 
   async loginUser(req: Request, res: Response) {
-    const user = await userService.findByEmail(req.body);
+    const user = await userService.findByEmail(req.body.email);
     if (_.isEmpty(user)) {
       return res.status(404).send({
         success: false,
@@ -83,7 +85,8 @@ class UserController {
         message: 'email or password is invalid'
       });
     }
-    const token = jwt.sign({ _id: user._id, email: user.email }, process.env.TOKEN_SECRET, { expiresIn: '20h', algorithm: 'HS512' });
+
+    const token = jwt.sign({ _id: user._id, email: user.email }, secret, { expiresIn: '20h', algorithm: 'HS512' });
     return res.status(200).send({
       success: true,
       body: {
@@ -94,7 +97,7 @@ class UserController {
     });
   }
 
-  async paginated(req, res) {
+  async paginated(req: Request, res: Response) {
     if (!(req.query?.page && req.query?.size)) {
       const users = await userService.getAllUsers();
       if (!users) {
@@ -121,7 +124,7 @@ class UserController {
     });
   }
 
-  async verify(req, res) {
+  async verify(req: Request, res: Response) {
     const { token } = req.params;
     // Check we have an id
     if (!token) {
@@ -132,9 +135,10 @@ class UserController {
 
     const decoded = jwt.verify(
       token,
-      process.env.TOKEN_SECRET
+      secret
     );
-    const user = await userService.findOne({ _id: decoded._id });
+    // @ts-ignore
+    const user = await userModel.findOne({ _id: decoded._id });
     if (!user) {
       return res.status(404).send({
         message: 'User does not  exist'
@@ -149,10 +153,10 @@ class UserController {
     });
   }
 
-  async forgotPassword(req, res) {
+  async forgotPassword(req: Request, res: Response) {
     const { newPassword } = req.body;
 
-    const user = await userService.findByEmail(req.body);
+    const user = await userService.findByEmail(req.body.email);
     if (_.isEmpty(user)) {
       return res.status(404).send({
         success: false,
@@ -167,7 +171,7 @@ class UserController {
 
     const response = {
       body: {
-        name: `${user.username}`,
+        name: `${user.lastname}${user.firstname}`,
         intro: 'Password Reset Successfully.',
         outre: 'If you did not initiate this reset please contact our customer support.'
 

@@ -3,14 +3,9 @@
 import userModel from '../models/user.model.js';
 
 class UserService {
-  async create(data) {
+  async create(data: object) {
     const newUser = await userModel.create(data);
     return newUser;
-  }
-
-  async login(data) {
-    const user = await userModel.findOne({ email: data.email });
-    return user;
   }
 
   async getAllUsers() {
@@ -18,17 +13,17 @@ class UserService {
     return users;
   }
 
-  async findByEmail(data) {
-    const user = await userModel.findOne({ email: data.email });
+  async findByEmail(data: string) {
+    const user = await userModel.findOne({ email: data });
     return user;
   }
 
-  async getUserById(id) {
+  async getUserById(id: string) {
     const user = await userModel.findOne({ _id: id });
     return user;
   }
 
-  async delete(id) {
+  async delete(id: string) {
     const deleted = await userModel.findByIdAndDelete(id);
     return deleted;
   }
