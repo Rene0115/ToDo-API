@@ -2,7 +2,7 @@
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import dotenv from 'dotenv';
-// dotenv config to acces env variables
+// dotenv config to access env variables
 dotenv.config();
 
 export const transporter = nodemailer.createTransport({
@@ -17,8 +17,8 @@ export const transporter = nodemailer.createTransport({
 export const mailGenerator = new Mailgen({
   theme: 'default',
   product: {
-    name: 'Nacos Blog',
-    link: 'https://nacos.org.ng/'
+    name: 'To Do',
+    link: 'github.com/Rene0115'
   }
 });
 

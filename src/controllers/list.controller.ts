@@ -2,10 +2,17 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 import _ from 'lodash';
+import express from 'express';
 import listService from '../services/list.services.js';
 
+interface reqFix {
+  user: any;
+}
+
+interface reqfixed extends reqFix, express.Request {}
 class ListController {
-  async createList(req, res) {
+  async createList(req: reqfixed, res: express.Response) {
+    
     const data = {
       title: req.body.title,
       content: req.body.content,
@@ -26,7 +33,7 @@ class ListController {
     });
   }
 
-  async updateList(req, res) {
+  async updateList(req: express.Request, res: express.Response) {
     const list = await listService.getListById(req.body.id);
     if (_.isEmpty(list)) {
       return res.status(404).send({
@@ -46,7 +53,7 @@ class ListController {
     });
   }
 
-  async deleteList(req, res) {
+  async deleteList(req: express.Request, res: express.Response) {
     const posts = await listService.delete(req.params.id);
     if (_.isEmpty(posts)) {
       return res.status(404).send({
@@ -61,7 +68,7 @@ class ListController {
     });
   }
 
-  async getAllLists(req, res) {
+  async getAllLists(req: express.Request, res: express.Response) {
     const allLists = await listService.getLists();
 
     if (_.isEmpty(allLists)) {
@@ -78,7 +85,7 @@ class ListController {
     });
   }
 
-  async getListById(req, res) {
+  async getListById(req: express.Request, res: express.Response) {
     const allLists = await listService.getListById(req.params.userId);
     if (_.isEmpty(allLists)) {
       return res.status(200).send({
@@ -93,7 +100,7 @@ class ListController {
     });
   }
 
-  async paginated(req, res) {
+  async paginated(req: express.Request, res: express.Response) {
     if (!(req.query?.page && req.query?.size)) {
       const lists = await listService.getLists();
       if (!lists) {
