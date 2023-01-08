@@ -1,8 +1,17 @@
 /* eslint-disable no-underscore-dangle */
-import mongoose from 'mongoose';
+import mongoose, {Document} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const userSchema = mongoose.Schema({
+interface IUser {
+  email: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+}
+
+export interface IUserModel extends IUser, Document {}
+
+const userSchema:mongoose.Schema = new mongoose.Schema({
 
   email: {
     type: String,
@@ -23,7 +32,7 @@ const userSchema = mongoose.Schema({
     required: true
   }
 
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 
 userSchema.plugin(mongoosePaginate);
 
@@ -34,6 +43,6 @@ userSchema.methods.toJSON = function f() {
   return userObject;
 };
 
-const userModel = mongoose.model('users', userSchema);
+const userModel = mongoose.model<IUserModel>('users', userSchema);
 
 export default userModel;

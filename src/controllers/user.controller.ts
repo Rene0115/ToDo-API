@@ -3,12 +3,13 @@
 /* eslint-disable class-methods-use-this */
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
+import {Request, Response} from 'express'
 import bcrypt from 'bcrypt';
-import { transporter, mailGenerator } from '../config/mailer.config.js';
-import userService from '../services/user.service.js';
+import { transporter, mailGenerator } from '../config/mailer.config';
+import userService from '../services/user.service';
 
 class UserController {
-  async create(req, res) {
+  async create(req: Request, res: Response) {
     const user = await userService.findByEmail(req.body);
     if (!_.isEmpty(user)) {
       return res.status(400).send({
@@ -17,7 +18,7 @@ class UserController {
       });
     }
     const data = {
-      email: req.body.email,
+      email: req.body.email.toLowerCase(),
       password: bcrypt.hashSync(req.body.password, 10),
       firstname: req.body.firstname,
       lastname: req.body.lastname
@@ -29,7 +30,7 @@ class UserController {
       });
     }
     const newUser = await userService.create(data);
-
+  //@ts-ignore
     const verificationToken = newUser.generateToken();
 
     const url = `${process.env.APP_URL}/users/verify/${verificationToken}`;
@@ -67,7 +68,7 @@ class UserController {
     });
   }
 
-  async loginUser(req, res) {
+  async loginUser(req: Request, res: Response) {
     const user = await userService.findByEmail(req.body);
     if (_.isEmpty(user)) {
       return res.status(404).send({

@@ -3,7 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 import _ from 'lodash';
 import express from 'express';
-import listService from '../services/list.services.js';
+import listService from '../services/list.services';
 
 interface reqFix {
   user: any;
