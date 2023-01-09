@@ -2,13 +2,14 @@
 /* eslint-disable import/extensions */
 /* eslint-disable consistent-return */
 import Jwt from 'jsonwebtoken';
-import logger from '../app.js';
+import logger from '../app';
+import express from 'express';
 
-const authentication = (req, res, next) => {
+const authentication = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const authHeader = req.headers.authorization;
 
   const token = authHeader && authHeader.split(' ')[1];
-
+//@ts-ignore
   Jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) {
       logger.error(err);
@@ -17,6 +18,7 @@ const authentication = (req, res, next) => {
         message: 'forbidden'
       });
     }
+  //@ts-ignore  
     req.user = user;
     next();
   });
