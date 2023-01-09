@@ -7,7 +7,7 @@ import {Request, Response} from 'express'
 import bcrypt from 'bcrypt';
 import { transporter, mailGenerator } from '../config/mailer.config';
 import userService from '../services/user.service';
-import userModel from '../models/user.model';
+import {userModel, IUser} from '../models/user.model';
 
 const secret = process.env.TOKEN_SECRET || ''
 class UserController {
@@ -19,7 +19,7 @@ class UserController {
         message: 'User already exists'
       });
     }
-    const data = {
+    const data: IUser = {
       email: req.body.email.toLowerCase(),
       password: bcrypt.hashSync(req.body.password, 10),
       firstname: req.body.firstname,

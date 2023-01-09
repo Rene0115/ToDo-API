@@ -1,7 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, {Document} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const listSchema = mongoose.Schema({
+interface IList {
+  title: string;
+  content: string;
+  userId: string;
+}
+
+interface IListModel extends IList, Document {}
+
+const listSchema: mongoose.Schema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -13,10 +21,10 @@ const listSchema = mongoose.Schema({
   userId: {
     type: String
   }
-}, { timestamps: true });
+}, { timestamps: true , versionKey: false});
 
 listSchema.plugin(mongoosePaginate);
 
-const listModel = mongoose.model('List', listSchema);
+const listModel = mongoose.model<IListModel>('List', listSchema);
 
-export default listModel;
+export {listModel, IList};

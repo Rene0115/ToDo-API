@@ -1,9 +1,9 @@
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
-import userModel from '../models/user.model.js';
+import {userModel, IUser} from '../models/user.model.js';
 
 class UserService {
-  async create(data: object) {
+  async create(data: IUser) {
     const newUser = await userModel.create(data);
     return newUser;
   }
@@ -28,7 +28,8 @@ class UserService {
     return deleted;
   }
 
-  async getUserByPage(data) {
+  async getUserByPage(data:any) {
+    //@ts-ignore
     const movie = await userModel.paginate({}, { page: data.page, size: data.size });
     return movie;
   }

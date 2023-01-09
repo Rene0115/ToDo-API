@@ -7,7 +7,7 @@ interface IUser {
   firstname: string;
   lastname: string;
   password: string;
-  verified: boolean;
+  verified?: boolean;
 }
 
 export interface IUserModel extends IUser, Document {}
@@ -49,4 +49,4 @@ userSchema.methods.toJSON = function f() {
 
 const userModel = mongoose.model<IUserModel>('User', userSchema);
 
-export default userModel;
+export {userModel, IUser};
