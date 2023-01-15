@@ -1,6 +1,12 @@
 import Joi from 'joi';
+import { IUser } from '../models/user.model';
 
-export const validateUserSchema = Joi.object().keys({
+interface ValidatePassword{
+  email: string;
+  newPassword: string;
+}
+
+export const validateUserSchema = Joi.object<IUser>().keys({
   email: Joi.string()
     .email()
     .regex(
@@ -11,7 +17,7 @@ export const validateUserSchema = Joi.object().keys({
   lastname: Joi.string().required(),
   password: Joi.string().required()
 });
-export const validateForgotPassword = Joi.object().keys({
+export const validateForgotPassword = Joi.object<ValidatePassword>().keys({
   email: Joi.string()
     .email()
     .regex(

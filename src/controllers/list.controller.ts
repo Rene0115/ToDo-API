@@ -6,17 +6,13 @@ import express from 'express';
 import listService from '../services/list.services';
 import { IList } from '../models/list.model';
 
-interface reqFix {
-  user: any;
-}
-
-interface reqfixed extends reqFix , express.Request {}
 class ListController {
-  async createList(req: reqfixed, res: express.Response) {
+  async createList(req: express.Request, res: express.Response) {
     
     const data: IList = {
       title: req.body.title,
       content: req.body.content,
+      //@ts-ignore
       userId: req.user._id
     };
     const list = await listService.create(data);
