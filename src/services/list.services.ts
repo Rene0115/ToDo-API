@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
-import {listModel, IList} from '../models/list.model.js';
+import {listModel, IList} from '../models/list.model';
 
 class ListService {
   async create(note: IList) {

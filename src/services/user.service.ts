@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable class-methods-use-this */
-import {userModel, IUser} from '../models/user.model.js';
+import {userModel, IUser} from '../models/user.model';
 
 class UserService {
   async create(data: IUser) {
@@ -9,7 +9,7 @@ class UserService {
   }
 
   async getAllUsers() {
-    const users = userModel.find({});
+    const users = await userModel.find();
     return users;
   }
 
