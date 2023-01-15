@@ -13,8 +13,7 @@ export const validateUserSchema = Joi.object<IUser>().keys({
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     )
     .required(),
-  firstname: Joi.string().required(),
-  lastname: Joi.string().required(),
+  username: Joi.string().required(),
   password: Joi.string().required()
 });
 export const validateForgotPassword = Joi.object<ValidatePassword>().keys({

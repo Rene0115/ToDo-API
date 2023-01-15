@@ -25,20 +25,19 @@ const secret = process.env.TOKEN_SECRET || '';
 class UserController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield user_service_1.default.findByEmail(req.body.email);
+            const data = {
+                email: req.body.email.toLowerCase(),
+                password: bcrypt_1.default.hashSync(req.body.password, 10),
+                username: req.body.lastname
+            };
+            const user = yield user_service_1.default.findByEmail(data.email);
             if (!lodash_1.default.isEmpty(user)) {
                 return res.status(400).send({
                     success: false,
                     message: 'User already exists'
                 });
             }
-            const data = {
-                email: req.body.email.toLowerCase(),
-                password: bcrypt_1.default.hashSync(req.body.password, 10),
-                firstname: req.body.firstname,
-                lastname: req.body.lastname
-            };
-            if (!(data.email || data.firstname || data.lastname || data.password)) {
+            if (!(data.email || data.username || data.password)) {
                 res.status(404).send({
                     success: false,
                     message: 'must supply email, password, firstname and lastname'
@@ -50,7 +49,7 @@ class UserController {
             const url = `${process.env.APP_URL}/users/verify/${verificationToken}`;
             const response = {
                 body: {
-                    name: `${req.body.firstname} ${req.body.lastname}`,
+                    name: `${data.username}`,
                     intro: 'Email Verification Link',
                     action: {
                         instructions: 'If you did not request for this mail, Please Ignore it. To Verify your Email password, click on the link below:',
@@ -171,7 +170,7 @@ class UserController {
             }
             const response = {
                 body: {
-                    name: `${user.lastname}${user.firstname}`,
+                    name: `${user.username}`,
                     intro: 'Password Reset Successfully.',
                     outre: 'If you did not initiate this reset please contact our customer support.'
                 }

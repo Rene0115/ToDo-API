@@ -4,8 +4,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 interface IUser {
   email: string;
-  firstname: string;
-  lastname: string;
+  username: string;
   password: string;
   verified?: boolean;
 }
@@ -19,20 +18,16 @@ const userSchema:mongoose.Schema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  firstname: {
+  username: {
     type: String,
     required: true
   },
-  lastname: {
-    type: String,
-    required: true
-  },
-
   password: {
     type: String,
     required: true
   },
   verified: {
+    type: Boolean,
     default: false
   }
 

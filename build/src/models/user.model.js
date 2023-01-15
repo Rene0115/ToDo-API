@@ -13,11 +13,7 @@ const userSchema = new mongoose_1.default.Schema({
         required: true,
         unique: true
     },
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
+    username: {
         type: String,
         required: true
     },
@@ -26,6 +22,7 @@ const userSchema = new mongoose_1.default.Schema({
         required: true
     },
     verified: {
+        type: Boolean,
         default: false
     }
 }, { timestamps: true, versionKey: false });

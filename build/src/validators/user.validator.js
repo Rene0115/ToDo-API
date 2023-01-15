@@ -10,8 +10,7 @@ exports.validateUserSchema = joi_1.default.object().keys({
         .email()
         .regex(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         .required(),
-    firstname: joi_1.default.string().required(),
-    lastname: joi_1.default.string().required(),
+    username: joi_1.default.string().required(),
     password: joi_1.default.string().required()
 });
 exports.validateForgotPassword = joi_1.default.object().keys({
