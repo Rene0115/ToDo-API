@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_paginate_v2_1 = __importDefault(require("mongoose-paginate-v2"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userSchema = new mongoose_1.default.Schema({
     email: {
         type: String,
@@ -31,6 +32,14 @@ userSchema.methods.toJSON = function f() {
     delete userObject.password;
     delete userObject.__v;
     return userObject;
+};
+const token2 = process.env.TOKEN_SECRET || '';
+userSchema.methods.generateToken = function t() {
+    const token = jsonwebtoken_1.default.sign({
+        _id: this._id,
+        email: this.email
+    }, token2, { expiresIn: '30 mins' });
+    return token;
 };
 const userModel = mongoose_1.default.model('User', userSchema);
 exports.userModel = userModel;

@@ -1,5 +1,6 @@
 import mongoose, {Document} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
+import jwt from 'jsonwebtoken';
 
 interface IUser {
   email: string;
@@ -39,6 +40,15 @@ userSchema.methods.toJSON = function f() {
   delete userObject.password;
   delete userObject.__v;
   return userObject;
+};
+const token2 = process.env.TOKEN_SECRET || ''
+userSchema.methods.generateToken = function t() { // t is short for token
+  const token = jwt.sign({
+    _id: this._id,
+    email: this.email
+  }, token2, { expiresIn: '30 mins' });
+
+  return token;
 };
 
 const userModel = mongoose.model<IUserModel>('User', userSchema);
