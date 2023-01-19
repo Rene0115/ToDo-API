@@ -12,7 +12,7 @@ class UserController {
     const data: IUser = {
       email: req.body.email.toLowerCase(),
       password: bcrypt.hashSync(req.body.password, 10),
-      username: req.body.lastname
+      username: req.body.username
     };
 
     const user = await userService.findByEmail(data.email);
