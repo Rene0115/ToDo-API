@@ -12,9 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable import/extensions */
-/* eslint-disable class-methods-use-this */
 const lodash_1 = __importDefault(require("lodash"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -28,7 +25,7 @@ class UserController {
             const data = {
                 email: req.body.email.toLowerCase(),
                 password: bcrypt_1.default.hashSync(req.body.password, 10),
-                username: req.body.lastname
+                username: req.body.username
             };
             const user = yield user_service_1.default.findByEmail(data.email);
             if (!lodash_1.default.isEmpty(user)) {

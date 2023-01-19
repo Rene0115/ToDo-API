@@ -12,9 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable import/extensions */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 const lodash_1 = __importDefault(require("lodash"));
 const list_services_1 = __importDefault(require("../services/list.services"));
 class ListController {

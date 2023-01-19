@@ -3,8 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
 const express_1 = __importDefault(require("express"));
 const list_controller_1 = __importDefault(require("../controllers/list.controller"));
 const validator_1 = __importDefault(require("../validators/validator"));

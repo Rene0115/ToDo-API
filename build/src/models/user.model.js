@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userModel = void 0;
-/* eslint-disable no-underscore-dangle */
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_paginate_v2_1 = __importDefault(require("mongoose-paginate-v2"));
 const userSchema = new mongoose_1.default.Schema({

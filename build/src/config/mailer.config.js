@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mailGenerator = exports.transporter = void 0;
-/* eslint-disable import/no-named-as-default */
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const mailgen_1 = __importDefault(require("mailgen"));
 const dotenv_1 = __importDefault(require("dotenv"));
