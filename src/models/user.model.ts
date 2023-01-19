@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import mongoose, {Document} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 

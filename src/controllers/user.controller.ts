@@ -1,6 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable import/extensions */
-/* eslint-disable class-methods-use-this */
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
 import {Request, Response} from 'express'

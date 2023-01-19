@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import Joi from "joi";
 import express from "express";
 import logger from "../app";

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import logger from '../app';

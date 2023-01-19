@@ -1,6 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
-/* eslint-disable consistent-return */
 import Jwt from 'jsonwebtoken';
 import logger from '../app';
 import express from 'express';

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
 import express from 'express';
 import listRouter from './list.routes';
 import userRouter from './user.routes';

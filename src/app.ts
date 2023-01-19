@@ -1,8 +1,7 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/extensions */
 import express from 'express';
 import pino from 'pino';
 import middleware from './middlewares/middlewares';
+import 'express-async-errors';
 
 const app = express();
 const logger = pino();

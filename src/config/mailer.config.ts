@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 import nodemailer from 'nodemailer';
 import Mailgen from 'mailgen';
 import dotenv from 'dotenv';

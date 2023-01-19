@@ -1,6 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 import _ from 'lodash';
 import express from 'express';
 import listService from '../services/list.services';
