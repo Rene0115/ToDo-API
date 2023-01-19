@@ -46,7 +46,7 @@ class UserController {
             const newUser = yield user_service_1.default.create(data);
             //@ts-ignore
             const verificationToken = newUser.generateToken();
-            const url = `${process.env.APP_URL}/users/verify/${verificationToken}`;
+            const url = `${process.env.APP_URL}users/verify/${verificationToken}`;
             const response = {
                 body: {
                     name: `${data.username}`,

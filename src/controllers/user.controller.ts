@@ -35,7 +35,7 @@ class UserController {
   //@ts-ignore
     const verificationToken = newUser.generateToken();
 
-    const url = `${process.env.APP_URL}/users/verify/${verificationToken}`;
+    const url = `${process.env.APP_URL}users/verify/${verificationToken}`;
 
     const response = {
       body: {
