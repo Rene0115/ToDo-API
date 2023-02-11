@@ -12,4 +12,5 @@ userRouter.post('/signup', [(0, validator_1.default)(user_validator_1.validateUs
 userRouter.post('/login', [(0, validator_1.default)(user_validator_1.validateUserSchema)], user_controller_1.default.loginUser);
 userRouter.get('/', user_controller_1.default.getUsers);
 userRouter.post('/forgotpassword', [(0, validator_1.default)(user_validator_1.validateForgotPassword)], user_controller_1.default.forgotPassword);
+userRouter.post('/verify/:token', user_controller_1.default.verify);
 exports.default = userRouter;

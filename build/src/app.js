@@ -16,7 +16,8 @@ let port = process.env.PORT;
 //    try { cron.schedule('* * * * *', async () => {
 //       const users = await userService.getAllUsers();
 //     for (let i=0; i< users.length; i++) {
-//       if ()
+//       if (users){
+//       }
 //     }
 //     })
 //   } catch (err){
