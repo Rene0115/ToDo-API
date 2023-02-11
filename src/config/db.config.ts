@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import logger from '../app';
 
-dotenv.config();
+
 const uri = process.env.MONGODB_URI || ''
 const database = () => {
+  mongoose.set('strictQuery',true);
   mongoose.connect(uri).then((value) => logger.info('database connected')).catch((err) => logger.info(err));
 };
 

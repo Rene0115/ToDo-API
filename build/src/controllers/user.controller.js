@@ -99,6 +99,21 @@ class UserController {
             });
         });
     }
+    getUsers(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const users = yield user_service_1.default.getAllUsers();
+            if (lodash_1.default.isEmpty(users)) {
+                return res.status(200).send({
+                    success: true,
+                    message: 'No users were found'
+                });
+            }
+            return res.status(200).send({
+                success: true,
+                data: users
+            });
+        });
+    }
     paginated(req, res) {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {

@@ -94,6 +94,20 @@ class UserController {
     });
   }
 
+  async getUsers(req: Request, res: Response ) {
+      const users = await userService.getAllUsers();
+      if (_.isEmpty(users)) {
+        return res.status(200).send({
+          success: true,
+          message: 'No users were found'
+        })
+  }
+  return res.status(200).send({
+    success: true,
+    data: users
+  });
+}
+
   async paginated(req: Request, res: Response) {
     if (!(req.query?.page && req.query?.size)) {
       const users = await userService.getAllUsers();

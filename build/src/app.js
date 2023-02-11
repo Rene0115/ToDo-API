@@ -12,6 +12,17 @@ const logger = (0, pino_1.default)();
 (0, middlewares_1.default)(app);
 ;
 let port = process.env.PORT;
+// const cronJob = async () => {
+//    try { cron.schedule('* * * * *', async () => {
+//       const users = await userService.getAllUsers();
+//     for (let i=0; i< users.length; i++) {
+//       if ()
+//     }
+//     })
+//   } catch (err){
+//     console.log(err);
+//   }
+// }
 app.listen(process.env.PORT, () => {
     if (port == undefined || port === '') {
         port = 8000;
